@@ -45,7 +45,7 @@ body{
     left: 10px;
     color: #FFF;
     font-size: 25px;
-    font-family: 'Titillium Web', sans-serif;
+   
 }
 
 /* ------------ content ------------ */
@@ -91,8 +91,8 @@ body{
     padding:0;
     margin:0;
     font-size: 20px;
-    left:50px;
-    top:5px;
+    left: 15%;
+    top: 24%;
     background-color: #FFF;
     max-width:285px;
 }
@@ -118,6 +118,7 @@ body{
     background-color: #FFF;
     padding: 10px;
     border-top: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0 0 15px 15px;
 }
 .add-to-do i{
     position: absolute;
