@@ -9,6 +9,30 @@ const CHECK = "fa-check-circle";
 const UNCHECK = "fa-circle-thin";
 const LINE_THROUGH = "lineThrough";
 
+//variables
+let LIST = []
+, id = 0;
+
+// get iten from local torage
+let data = localStorage.getItem("TODO");
+
+// CHECK IF DATA IS NOT EMPTY
+
+
+//load items to the users interface
+function loadList(array){
+    array.forEach(function(item){
+        addToDo(item.name, item.id, item.done, item.trash);
+    });
+}
+
+// clear the local storage
+clear.addEventListener("click", function(){
+    localStorage.clear();
+    location.reload();
+});
+
+
 // SHOW TODAYS DATE 
 
 const options = { weekday: "long", month: "short", day: "numeric"};
@@ -18,12 +42,17 @@ dateElement.innerHTML = today.toLocaleDateString("en-US", options);
 
 //FUNCTION TO DO
 
-function addToDo( toDo ) {
+function addToDo( toDo, id, done, trash ) {
+
+if(trash) { return; }
+
+const DONE = done ? CHECK : UNCHECK;
+const LINE = done ? LINE_THROUGH : "";
 
 const item = ` <li class="item">
-                <i class="fa fa-circle-thin co" job="complete" id="0"></i>
-                <p class="text"> ${toDo} </p>
-                <i class="fa fa-trash-o de" job="delete" id="0"></i>    
+                <i class="fa ${DONE} co" job="complete" id="${id}"></i>
+                <p class="text ${LINE}"> ${toDo} </p>
+                <i class="fa fa-trash-o de" job="delete" id="${id}"></i>    
                 </li>         
             `;
 
@@ -32,4 +61,49 @@ const position = "beforeend";
 list.insertAdjacentHTML(position, item);
 
 }
-addToDo("Drink Coffee");
+// add item to the list when user hits enter key
+document.addEventListener("keyup", function(event) {
+    if(event.keyCode == 13){
+        const toDo = input.value; 
+        // if the input isnt empty
+        if(toDo){
+            addToDo(toDo, id, false, false);
+
+            LIST.push({
+                name : toDo,
+                id : id,
+                done : false,
+                trash : false          
+        });
+        id++;
+    } 
+    input.value = "";   
+}
+});
+
+// complete to do
+function completeToDo(element){
+    element.classList.toggle(CHECK);
+    element.classList.toggle(UNCHECK);
+    element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+
+    LIST[element.id].done = LIST[element.id].done ? false : true;
+}
+//remove to do
+function removeToDo(element){
+    element.parentNode.parentNode.removeChild(element.parentNode);
+    LIST[element.id].trash = true;
+}
+
+// target the items created dynamically
+list.addEventListener("click", function(event) {
+    const element = event.target; // return the clicked element inside list
+    const elementJob = event.target.attributes.job.value; //complete or delete
+
+    if(elementJob == "complete"){
+        completeToDo(element);
+    } else if(elementJob == "delete"){
+        removeToDo(element);
+    }
+
+});
