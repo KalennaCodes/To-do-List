@@ -2,8 +2,7 @@
 body{
     padding: 0;
     margin: 0;
-    background-color: rgba(0,0,0,0.1);
-    font-family: 'Titillium Web', sans-serif;
+    background-color: rgba(197, 196, 196, 0.37);
 }
 
 /* ------------ container ------------ */
@@ -17,7 +16,7 @@ body{
 .header{
     width: 380px;
     height:200px;
-    background-image: url('header.jpg');
+    background-image: url('header2.jpg');
     background-size: 100% 200%;
     background-repeat: no-repeat;
     border-radius: 15px 15px 0 0;
