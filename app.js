@@ -13,18 +13,13 @@ const LINE_THROUGH = "lineThrough";
 let LIST = []
 , id = 0;
 
-// get iten from local torage
-let data = localStorage.getItem("TODO");
-
-// CHECK IF DATA IS NOT EMPTY
-
 
 //load items to the users interface
-function loadList(array){
+function addToDo(array){
     array.forEach(function(item){
         addToDo(item.name, item.id, item.done, item.trash);
     });
-}
+} 
 
 // clear the local storage
 clear.addEventListener("click", function(){
@@ -49,12 +44,11 @@ if(trash) { return; }
 const DONE = done ? CHECK : UNCHECK;
 const LINE = done ? LINE_THROUGH : "";
 
-const item = ` <li class="item">
+const item = `<li class="item">
                 <i class="fa ${DONE} co" job="complete" id="${id}"></i>
                 <p class="text ${LINE}"> ${toDo} </p>
                 <i class="fa fa-trash-o de" job="delete" id="${id}"></i>    
-                </li>         
-            `;
+                </li>`;
 
 const position = "beforeend";
 
@@ -62,7 +56,7 @@ list.insertAdjacentHTML(position, item);
 
 }
 // add item to the list when user hits enter key
-document.addEventListener("keyup", function(event) {
+document.addEventListener("keyup",function(event) {
     if(event.keyCode == 13){
         const toDo = input.value; 
         // if the input isnt empty
@@ -75,9 +69,8 @@ document.addEventListener("keyup", function(event) {
                 done : false,
                 trash : false          
         });
-        id++;
-    } 
-    input.value = "";   
+        input.value = "";  
+            id++; }
 }
 });
 
